@@ -1,38 +1,39 @@
-const body = document.querySelector('body');
-const btnNewBook = document.querySelector('#btn-new-book');
-const overlay = document.createElement("div");
-overlay.classList.add("overlay");
-body.appendChild(overlay);
-const popup = document.createElement("div");
-popup.classList.add("popup");
-body.appendChild(popup);
+const buttonNewBook = document.querySelector('#btn-new-book');
+const buttonClose = document.querySelector('#btn-close');
+const popup = document.querySelector('.popup');
+const overlay = document.querySelector('.overlay');
 
-
-btnNewBook.addEventListener('click', () => {
-    console.log("HELLO");
+buttonNewBook.addEventListener('click', () => {
     openPopup();
 });
 
+buttonClose.addEventListener('click', () => {
+    closePopup();
+});
+
 function openPopup() {
-    popup.classList.add("open-popup");
-    overlay.classList.add("active");
+    setTimeout(() => {
+        popup.style.opacity = 1;
+        overlay.style.opacity = 1;
+    }, 0);
+    popup.style.display = 'block';
+    overlay.style.display = 'block';
 }
 
-// function openPopup() {
-//     const popup = document.querySelector('.prompt');
-//     popup.style.display = 'block';
-// }
-
-// function closeDiv() {
-//     let get = document.querySelector('.prompt');
-//     get.style.display = 'none';
-// }
-
-const myLibrary = [];
-
-function Book(title, author, pages, isRead) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = false;
+function closePopup() {
+    popup.style.opacity = '0';
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+    }, 300);
 }
+
+// const myLibrary = [];
+
+// function Book(title, author, pages, isRead) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.isRead = false;
+// }

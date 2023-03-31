@@ -15,10 +15,27 @@
     <nav>
         <h1>Library</h1>
     </nav>
-    <button id="btn-new-book">+ New Book</button>
+    <button id="btn-new-book" role="button">+ New Book</button>
     <div class="popup">
-        <button>PRESS</button>
+        <form action="">
+            <h2>Add New Book</h2>
+            <hr>
+            <div class="inputs">
+                <input type="text" placeholder="Title" minlength="0" maxlength="50" required>
+                <input type="text" placeholder="Author" minlength="0" maxlength="50" required>
+                <input type="number" placeholder="Pages" min="0" required>
+                <div class="read-or-not">
+                    <span>Have you read it?</span>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="checkbox">
+                    </div>
+                </div>
+                <button type="submit" id="btn-submit">Submit</button>
+            </div>
+        </form>
+        <button id="btn-close">Close</button>
     </div>
+    <div class="overlay"></div>
 </body>
 
 </html>
