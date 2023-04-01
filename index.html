@@ -21,21 +21,20 @@
             <h2>Add New Book</h2>
             <hr>
             <div class="inputs">
-                <input type="text" placeholder="Title" minlength="0" maxlength="50" required>
-                <input type="text" placeholder="Author" minlength="0" maxlength="50" required>
-                <input type="number" placeholder="Pages" min="0" required>
+                <input type="text" id="input-title" placeholder="Title" minlength="0" maxlength="100" required>
+                <input type="text" id="input-author" placeholder="Author" minlength="0" maxlength="100" required>
+                <input type="number" id="input-pages" placeholder="Pages" min="0" max="10000" required>
                 <div class="read-or-not">
                     <span>Have you read it?</span>
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="checkbox">
-                    </div>
+                    <input type="checkbox" class="checkbox">
                 </div>
                 <button type="submit" id="btn-submit">Submit</button>
             </div>
         </form>
-        <button id="btn-close">Close</button>
+        <button class="btn-close">Close</button>
     </div>
     <div class="overlay"></div>
+    <div class="cards"></div>
 </body>
 
 </html>
