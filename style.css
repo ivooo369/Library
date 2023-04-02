@@ -277,7 +277,7 @@ hr {
   background-color: #008000;
 }
 
-.checkbox:checked:hover {
+.book-card .checkbox:checked:hover {
   background-color: #006400;
 }
 

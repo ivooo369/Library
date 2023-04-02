@@ -11,7 +11,6 @@ const cards = document.querySelector('.cards');
 const buttonToggle = document.querySelector('#btn-toggle');
 const buttonRemove = document.querySelector('.btn-remove');
 
-
 const myLibrary = [];
 class Book {
     constructor(title, author, pages, isRead) {
@@ -24,7 +23,14 @@ class Book {
 
 buttonNewBook.addEventListener('click', openPopup);
 buttonClose.addEventListener('click', closePopup);
-buttonSubmit.addEventListener('click', (e) => (e.preventDefault(), addBookToLibrary(), closePopup()));
+buttonSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+        createNewBook();
+        closePopup();
+    }
+});
+
 
 function openPopup() {
     setTimeout(() => {
@@ -48,48 +54,57 @@ function closePopup() {
     }, 300);
 }
 
-function addBookToLibrary() {
-    const createNewBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, checkbox.checked);
-    checkForDuplicateTitle();
-    myLibrary.push(createNewBook);
-    showBooks();
+function addBookToLibrary(book) {
+    myLibrary.push(book);
 }
 
-function showBooks() {
-    const bookCard = document.createElement('div');
-    bookCard.classList.add('book-card');
-    bookCard.innerHTML = `
-        <p>Title: ${inputTitle.value}</p>
-        <p>Author: ${inputAuthor.value}</p>
-        <p>Pages: ${inputPages.value}</p>
-        <div class="read-or-not">
-        <span>Mark as read?</span>
-            <input type="checkbox" class="checkbox">
-        </div>
-        `;
-    cards.appendChild(bookCard);
-    const buttonRemove = document.createElement('button');
-    buttonRemove.classList.add('btn-remove');
-    buttonRemove.textContent = 'Remove';
-    bookCard.appendChild(buttonRemove);
-    buttonRemove.addEventListener('click', removeBook);
-    function removeBook() {
-        bookCard.remove();
-        const index = myLibrary.indexOf(createNewBook);
-        if (index !== -1) {
-            myLibrary.splice(index, 1);
+function createNewBook() {
+    const newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, checkbox.checked);
+    if (checkForDuplicateTitle(newBook)) {
+        addBookToLibrary(newBook);
+        const bookCard = document.createElement('div');
+        bookCard.classList.add('book-card');
+        bookCard.innerHTML = `
+            <p>Title: ${inputTitle.value}</p>
+            <p>Author: ${inputAuthor.value}</p>
+            <p>Pages: ${inputPages.value}</p>
+            <div class="read-or-not">
+            <span>Mark as read?</span>
+                <input type="checkbox" class="checkbox" ${checkbox.checked ? 'checked' : ''}>
+            </div>
+            `;
+        cards.appendChild(bookCard);
+        const buttonRemove = document.createElement('button');
+        buttonRemove.classList.add('btn-remove');
+        buttonRemove.textContent = 'Remove';
+        bookCard.appendChild(buttonRemove);
+        buttonRemove.addEventListener('click', removeBook);
+        function removeBook() {
+            bookCard.remove();
+            const index = myLibrary.indexOf(newBook);
+            if (index !== -1) {
+                myLibrary.splice(index, 1);
+            }
         }
     }
 }
 
-function checkForDuplicateTitle() {
-    const titles = new Set();
+function checkForDuplicateTitle(book) {
     for (let i = 0; i < myLibrary.length; i++) {
-        if (titles.has(myLibrary[i].title)) {
-            alert('ERROR!');
+        if (myLibrary[i].title === book.title) {
+            alert('This book already exists in the library!');
+            return false;
         }
-        titles.add(myLibrary[i].title);
     }
+    return true;
+}
+
+function validateForm() {
+    if (inputTitle.value === '' || inputAuthor.value === '' || inputPages.value === '') {
+        alert('Please fill out all fields!');
+        return false;
+    }
+    return true;
 }
 
 
