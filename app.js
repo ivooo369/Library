@@ -10,6 +10,7 @@ const checkbox = document.querySelector('.checkbox');
 const cards = document.querySelector('.cards');
 const buttonToggle = document.querySelector('#btn-toggle');
 const buttonRemove = document.querySelector('.btn-remove');
+const msgExistingBook = document.querySelector('#msg-existing-book');
 
 const myLibrary = [];
 class Book {
@@ -24,13 +25,14 @@ class Book {
 buttonNewBook.addEventListener('click', openPopup);
 buttonClose.addEventListener('click', closePopup);
 buttonSubmit.addEventListener('click', (e) => {
-    e.preventDefault();
     if (validateForm()) {
+        e.preventDefault();
         createNewBook();
-        closePopup();
     }
 });
-
+inputTitle.addEventListener('input', () => inputTitle.setCustomValidity(''));
+inputAuthor.addEventListener('input', () => inputAuthor.setCustomValidity(''));
+inputPages.addEventListener('input', () => inputPages.setCustomValidity(''));
 
 function openPopup() {
     setTimeout(() => {
@@ -64,15 +66,13 @@ function createNewBook() {
         addBookToLibrary(newBook);
         const bookCard = document.createElement('div');
         bookCard.classList.add('book-card');
-        bookCard.innerHTML = `
-            <p>Title: ${inputTitle.value}</p>
+        bookCard.innerHTML = `<p>Title: ${inputTitle.value}</p>
             <p>Author: ${inputAuthor.value}</p>
             <p>Pages: ${inputPages.value}</p>
             <div class="read-or-not">
             <span>Mark as read?</span>
                 <input type="checkbox" class="checkbox" ${checkbox.checked ? 'checked' : ''}>
-            </div>
-            `;
+            </div>`;
         cards.appendChild(bookCard);
         const buttonRemove = document.createElement('button');
         buttonRemove.classList.add('btn-remove');
@@ -86,25 +86,40 @@ function createNewBook() {
                 myLibrary.splice(index, 1);
             }
         }
+        closePopup();
     }
 }
 
 function checkForDuplicateTitle(book) {
     for (let i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].title === book.title) {
-            alert('This book already exists in the library!');
+            msgExistingBook.style.display = 'block';
             return false;
+        } else {
+            msgExistingBook.style.display = 'none';
         }
     }
     return true;
 }
 
 function validateForm() {
-    if (inputTitle.value === '' || inputAuthor.value === '' || inputPages.value === '') {
-        alert('Please fill out all fields!');
+    if (inputTitle.value === '') {
+        inputTitle.setCustomValidity('Please enter a title.');
+        inputTitle.reportValidity();
+        return false;
+    } else if (inputAuthor.value === '') {
+        inputAuthor.setCustomValidity('Please enter an author.');
+        inputAuthor.reportValidity();
+        return false;
+    } else if (inputPages.value === '') {
+        inputPages.setCustomValidity('Please enter number of pages.');
+        inputPages.reportValidity();
+        return false;
+    }
+    if (!(inputPages.value > 0 && inputPages.value < 100000)) {
+        inputPages.setCustomValidity('The value has to be between 0 and 100000.');
+        inputPages.reportValidity();
         return false;
     }
     return true;
 }
-
-

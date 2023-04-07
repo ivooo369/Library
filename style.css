@@ -12,6 +12,7 @@ body {
 
 body {
   background-color: #f7f3f3;
+  background-image: url("https://media.istockphoto.com/id/470721440/vector/books-seamless-pattern.jpg?s=612x612&w=0&k=20&c=SBWwuWALkou5kDTDq6_V7SGuBMJ4vxTK3y15B9ZSFDE=");
 }
 
 nav {
@@ -75,6 +76,7 @@ nav {
   box-shadow: 3px 7px;
   border: 1px solid black;
   font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .read-or-not {
@@ -302,9 +304,6 @@ hr {
   width: 12rem;
   background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
-}
-
-.book-card p {
   overflow-wrap: break-word;
 }
 
@@ -312,4 +311,10 @@ hr {
   display: flex;
   align-items: center;
   gap: 2.4rem;
+}
+
+#msg-existing-book {
+  display: none;
+  color: #ff0000;
+  font-weight: bold;
 }
