@@ -23,15 +23,58 @@ nav {
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
 }
 
+.log-and-button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 1.5rem;
+}
+
+.library-log {
+  margin-right: 4rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 1rem;
+  background-color: #fbab7e;
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+  border-radius: 1rem;
+  width: 12rem;
+  justify-self: end;
+  border: 5px double black;
+}
+
 #btn-new-book {
   display: flex;
   justify-content: center;
-  margin: 2rem auto;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  border: 3px solid black;
-  font-weight: bold;
-  font-size: 1.2rem;
+  align-items: center;
+  appearance: none;
+  background-color: initial;
+  background-image: none;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: Eina01, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 24px;
+  min-height: 64px;
+  outline: none;
+  padding: 19px 26px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: auto;
+  word-break: keep-all;
+  z-index: 0;
+  margin: auto;
+  grid-column: 2 / 3;
 }
 
 .popup {
@@ -73,7 +116,7 @@ nav {
   height: 1.5rem;
   border-radius: 0.3rem;
   padding: 0.3rem;
-  box-shadow: 3px 7px;
+  box-shadow: 3px 7px 5px;
   border: 1px solid black;
   font-size: 1rem;
   margin-bottom: 0.5rem;
@@ -136,43 +179,6 @@ hr {
 .btn-close:hover,
 .btn-remove:hover {
   background-color: #960000;
-}
-
-#btn-new-book {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  appearance: none;
-  background-clip: padding-box;
-  background-color: initial;
-  background-image: none;
-  border-style: none;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  flex-shrink: 0;
-  font-family: Eina01, sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  justify-content: center;
-  line-height: 24px;
-  min-height: 64px;
-  outline: none;
-  overflow: visible;
-  padding: 19px 26px;
-  pointer-events: auto;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  width: auto;
-  word-break: keep-all;
-  z-index: 0;
-  margin: 2rem auto;
 }
 
 @media (min-width: 768px) {
@@ -305,6 +311,7 @@ hr {
   background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
   overflow-wrap: break-word;
+  box-shadow: 10px 10px 10px;
 }
 
 .book-card .read-or-not {

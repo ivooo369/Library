@@ -15,7 +15,15 @@
     <nav>
         <h1>Library</h1>
     </nav>
-    <button id="btn-new-book" role="button">+ New Book</button>
+    <div class="log-and-button-container">
+        <button id="btn-new-book" role="button">+ New Book</button>
+        <div class="library-log">
+            <p>Total books: <span id="total-books-counter">0</span></p>
+            <p>Total pages: <span id="total-pages-counter">0</span></p>
+            <p>Read books: <span id="read-books-counter">0</span></p>
+            <p>Unread books: <span id="unread-books-counter">0</span></p>
+        </div>
+    </div>
     <div class="popup">
         <form action="">
             <h2>Add New Book</h2>
