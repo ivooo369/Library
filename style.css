@@ -225,6 +225,7 @@ hr {
   margin: 0;
   position: relative;
   width: 30px;
+  cursor: pointer;
 }
 
 .checkbox,
