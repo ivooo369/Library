@@ -8,18 +8,14 @@
 html,
 body {
   min-height: 100vh;
-}
-
-body {
-  background-color: #f7f3f3;
   background-image: url("https://media.istockphoto.com/id/470721440/vector/books-seamless-pattern.jpg?s=612x612&w=0&k=20&c=SBWwuWALkou5kDTDq6_V7SGuBMJ4vxTK3y15B9ZSFDE=");
 }
 
 nav {
   padding: 1.5rem;
+  max-width: 100%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 1.5rem;
-  background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
 }
 
@@ -30,12 +26,11 @@ nav {
 }
 
 .library-log {
-  margin-right: 4rem;
+  margin-right: 3rem;
   font-size: 1.2rem;
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 1rem;
-  background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
   border-radius: 1rem;
   width: 12rem;
@@ -47,31 +42,18 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  appearance: none;
   background-color: initial;
-  background-image: none;
   border-style: none;
-  box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
-  flex-shrink: 0;
   font-family: Eina01, sans-serif;
   font-size: 1rem;
-  font-weight: 800;
-  line-height: 24px;
-  min-height: 64px;
-  outline: none;
+  font-weight: bold;
+  min-height: 4rem;
   padding: 19px 26px;
-  pointer-events: auto;
   position: relative;
   text-align: center;
-  text-decoration: none;
-  text-transform: none;
-  user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
   width: auto;
-  word-break: keep-all;
   z-index: 0;
   margin: auto;
   grid-column: 2 / 3;
@@ -129,7 +111,6 @@ nav {
   font-size: 1.2rem;
 }
 
-.read-or-not input,
 button {
   cursor: pointer;
 }
@@ -181,27 +162,21 @@ hr {
   background-color: #960000;
 }
 
-@media (min-width: 768px) {
-  #btn-new-book {
-    padding: 19px 32px;
-  }
-}
-
 #btn-new-book:before,
 #btn-new-book:after {
-  border-radius: 80px;
+  border-radius: 5rem;
 }
 
 #btn-new-book:before {
   background-color: #f93a1352;
   content: "";
   display: block;
+  width: 100%;
   height: 100%;
   left: 0;
   overflow: hidden;
   position: absolute;
   top: 0;
-  width: 100%;
   z-index: -2;
 }
 
@@ -243,7 +218,7 @@ hr {
 .checkbox {
   appearance: none;
   background-color: #000000;
-  border-radius: 72px;
+  border-radius: 4.5rem;
   border-style: none;
   flex-shrink: 0;
   height: 20px;
@@ -291,10 +266,10 @@ hr {
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+  gap: 3rem 7rem;
   font-size: 1.2rem;
-  padding: 3rem;
-  row-gap: 2rem;
+  padding: 5rem;
 }
 
 .book-card {
@@ -308,7 +283,6 @@ hr {
   border-radius: 1rem;
   gap: 0.5rem;
   width: 12rem;
-  background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
   overflow-wrap: break-word;
   box-shadow: 10px 10px 10px;
@@ -324,4 +298,26 @@ hr {
   display: none;
   color: #ff0000;
   font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  #btn-new-book {
+    padding: 19px 32px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .container {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+
+  .library-log {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    margin: auto;
+    margin-top: 2rem;
+  }
 }

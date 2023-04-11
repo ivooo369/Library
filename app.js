@@ -32,6 +32,7 @@ class Book {
 
 buttonNewBook.addEventListener('click', openPopup);
 buttonClose.addEventListener('click', closePopup);
+overlay.addEventListener('click', closePopup);
 buttonSubmit.addEventListener('click', (e) => {
     if (validateForm()) {
         e.preventDefault();
@@ -60,6 +61,7 @@ function closePopup() {
         inputTitle.value = '';
         inputAuthor.value = '';
         inputPages.value = '';
+        msgExistingBook.style.display = 'none';
         checkbox.checked = false;
     }, 300);
 }
