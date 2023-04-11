@@ -50,6 +50,7 @@ function openPopup() {
     }, 0);
     popup.style.display = 'block';
     overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 }
 
 function closePopup() {
@@ -64,6 +65,7 @@ function closePopup() {
         msgExistingBook.style.display = 'none';
         checkbox.checked = false;
     }, 300);
+    document.body.style.overflow = 'auto';
 }
 
 function addBookToLibrary(book) {
