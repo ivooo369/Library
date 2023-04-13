@@ -42,6 +42,14 @@ buttonSubmit.addEventListener('click', (e) => {
 inputTitle.addEventListener('input', () => inputTitle.setCustomValidity(''));
 inputAuthor.addEventListener('input', () => inputAuthor.setCustomValidity(''));
 inputPages.addEventListener('input', () => inputPages.setCustomValidity(''));
+window.addEventListener('load', () => {
+    const storedBooks = JSON.parse(localStorage.getItem('myLibrary'));
+    if (storedBooks) {
+        myLibrary.push(...storedBooks);
+        displayBooks();
+        updateLibraryLog();
+    }
+});
 
 function openPopup() {
     setTimeout(() => {
@@ -70,34 +78,34 @@ function closePopup() {
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+    displayBooks();
 }
 
 function updateLibraryLog() {
-    totalBooksCounter.textContent = totalBooks;
-    totalPagesCounter.textContent = totalPages;
-    readBooksCounter.textContent = readBooks;
-    unreadBooksCounter.textContent = unreadBooks;
+    totalBooksCounter.textContent = myLibrary.length;
+    totalPagesCounter.textContent = myLibrary.reduce((total, book) => total + Number(book.pages), 0);
+    readBooksCounter.textContent = myLibrary.filter(book => book.isRead).length;
+    unreadBooksCounter.textContent = myLibrary.filter(book => !book.isRead).length;
 }
 
-function createNewBook() {
-    const newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, checkbox.checked);
-    if (checkForDuplicateTitle(newBook)) {
-        addBookToLibrary(newBook);
-        totalBooks++;
-        totalPages += Number(inputPages.value);
+function displayBooks() {
+    cards.innerHTML = '';
+    for (let i = 0; i < myLibrary.length; i++) {
+        const book = myLibrary[i];
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.checked = newBook.isRead;
+        checkbox.checked = book.isRead;
         checkbox.classList.add('checkbox');
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
-                newBook.isRead = true;
+                book.isRead = true;
                 readBooks++;
                 if (unreadBooks > 0) {
                     unreadBooks--;
                 }
             } else {
-                newBook.isRead = false;
+                book.isRead = false;
                 unreadBooks++;
                 if (readBooks > 0) {
                     readBooks--;
@@ -107,12 +115,12 @@ function createNewBook() {
         });
         const bookCard = document.createElement('div');
         bookCard.classList.add('book-card');
-        bookCard.innerHTML = `<p>Title: ${inputTitle.value}</p>
-          <p>Author: ${inputAuthor.value}</p>
-          <p>Pages: ${inputPages.value}</p>
-          <div class="read-or-not">
-          <span>Mark as read?</span>
-          </div>`;
+        bookCard.innerHTML = `<p>Title: ${book.title}</p>
+        <p>Author: ${book.author}</p>
+        <p>Pages: ${book.pages}</p>
+        <div class="read-or-not">
+        <span>Mark as read?</span>
+        </div>`;
         const readOrNot = bookCard.querySelector('.read-or-not');
         readOrNot.appendChild(checkbox);
         cards.appendChild(bookCard);
@@ -120,43 +128,47 @@ function createNewBook() {
         buttonRemove.classList.add('btn-remove');
         buttonRemove.textContent = 'Remove';
         bookCard.appendChild(buttonRemove);
-        buttonRemove.addEventListener('click', removeBook);
-        function removeBook() {
-            const pagesToRemove = Number(bookCard.querySelector('p:nth-of-type(3)').textContent.split(' ')[1]);
-            bookCard.remove();
-            const index = myLibrary.indexOf(newBook);
-            if (index !== -1) {
-                myLibrary.splice(index, 1);
-            }
-            totalBooks--;
-            totalPages -= pagesToRemove;
-            if (newBook.isRead && readBooks > 0) {
-                readBooks--;
-            } else if (!newBook.isRead && unreadBooks > 0) {
-                unreadBooks--;
-            }
-            updateLibraryLog();
-        }
-        if (newBook.isRead) {
-            readBooks++;
-        } else {
-            unreadBooks++;
-        }
+        buttonRemove.addEventListener('click', () => removeBook(book, bookCard));
+    }
+}
+
+function createNewBook() {
+    const newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, checkbox.checked);
+    if (!checkForDuplicateTitle(newBook)) {
+        addBookToLibrary(newBook);
         updateLibraryLog();
         closePopup();
     }
+}
+
+function removeBook(book, bookCard) {
+    const pagesToRemove = Number(bookCard.querySelector('p:nth-of-type(3)').textContent.split(' ')[1]);
+    bookCard.remove();
+    const index = myLibrary.indexOf(book);
+    if (index !== -1) {
+        myLibrary.splice(index, 1);
+        localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+    }
+    totalBooks--;
+    totalPages -= pagesToRemove;
+    if (book.isRead && readBooks > 0) {
+        readBooks--;
+    } else if (!book.isRead && unreadBooks > 0) {
+        unreadBooks--;
+    }
+    updateLibraryLog();
 }
 
 function checkForDuplicateTitle(book) {
     for (let i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].title === book.title) {
             msgExistingBook.style.display = 'block';
-            return false;
+            return true;
         } else {
             msgExistingBook.style.display = 'none';
         }
     }
-    return true;
+    return false;
 }
 
 function validateForm() {
