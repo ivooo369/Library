@@ -335,7 +335,7 @@ hr {
   }
 }
 
-@media(max-height:450px) {
+@media (max-height: 450px) {
   .popup {
     padding: 1rem;
   }
