@@ -295,6 +295,12 @@ hr {
   gap: 2.4rem;
 }
 
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 #msg-existing-book {
   display: none;
   color: #ff0000;
@@ -307,7 +313,7 @@ hr {
   }
 }
 
-@media screen and (max-width: 780px) {
+@media (max-width: 780px) {
   .container {
     display: grid;
     grid-template-rows: repeat(2, auto);
@@ -320,5 +326,11 @@ hr {
     grid-column: 2 / 3;
     margin: auto;
     margin-top: 2rem;
+  }
+}
+
+@media(max-height:450px) {
+  .fields {
+    flex-direction: row;
   }
 }
