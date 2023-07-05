@@ -301,6 +301,12 @@ hr {
   gap: 1rem;
 }
 
+.input-title-div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 #msg-existing-book {
   display: none;
   color: #ff0000;
@@ -330,6 +336,14 @@ hr {
 }
 
 @media(max-height:450px) {
+  .popup {
+    padding: 1rem;
+  }
+
+  .inputs {
+    gap: 0.8rem;
+  }
+
   .fields {
     flex-direction: row;
   }
